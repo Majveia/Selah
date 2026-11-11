@@ -204,7 +204,6 @@ export function createMoon(radius, tone = 0.5, seed = 1) {
     vertexShader: SURF_VERT,
     fragmentShader: `${GLSL.snoise3}\n${GLSL.fbm3}\nuniform vec3 uSun, uSunColor; uniform float uTone, uSeed; varying vec3 vObj, vW, vN;
       void main(){ vec3 N = normalize(vN); float h = fbm(vObj * 3.0 + uSeed, 5); float cr = smoothstep(0.35, 0.6, snoise(vObj * 7.0 + uSeed));
-        vec3 sx = dFdx(vW), sy = dFdy(vW), r1 = cross(sy, N), r2 = cross(N, sx); float det = dot(sx, r1); N = normalize(abs(det) * N - 3.5 * sign(det) * (dFdx(h) * r1 + dFdy(h) * r2));
         float ndl = max(dot(N, normalize(uSun)), 0.0); vec3 c = vec3(uTone) * (0.7 + 0.5 * h) * (1.0 - 0.3 * cr);
         gl_FragColor = vec4(c * ndl * uSunColor + 0.0015, 1.0); }`,
     uniforms: { uSun: { value: new THREE.Vector3(1, 0, 0) }, uSunColor: { value: new THREE.Vector3(1, 0.96, 0.9) }, uTone: { value: tone }, uSeed: { value: seed } },
