@@ -74,7 +74,7 @@ export class Sky {
   configure(desc, hasSea) {
     const k = desc.look; this.atmo.fromArray(k.atmo); this.dens = clamp(k.atmoDensity, 0.05, 1.3);
     this.U.uCloud.value = k.cloud; this.water.visible = hasSea; this.WU.uDeep.value.fromArray(k.ocean[1]).multiplyScalar(0.9);
-    this.phase = 0.035;                                              // arrive in the long light after sunrise
+    this.phase = 0.07;                                               // arrive in the long light of morning
   }
   /** advance the day; writes the shared light uniforms */
   update(dt, camPos, speed = 1) {
@@ -89,7 +89,7 @@ export class Sky {
     hz.lerp(_c.set(1.0, 0.5, 0.24), gold * 0.72).multiplyScalar(0.45 + 0.55 * D);
     U.uSunCol.value.set(1.0, lerp(0.42, 0.95, smoothstep(0.0, 0.5, y)), lerp(0.16, 0.86, smoothstep(0.0, 0.5, y)));
     U.uSun.value.copy(sun); U.uMoon.value.copy(this.moon); U.uNight.value = night;
-    U.uCloudLit.value.copy(U.uSunCol.value).multiplyScalar(1.15 * (0.15 + 0.85 * day)).addScaledVector(U.uZenith.value, 0.6).addScalar(0.02 * night);
+    U.uCloudLit.value.copy(U.uSunCol.value).multiplyScalar(1.15 * day * day).addScaledVector(U.uZenith.value, 0.6).add(_c.set(0.035, 0.045, 0.07).multiplyScalar(night));   // moonlit at night
     U.uCloudDark.value.copy(U.uHorizon.value).multiplyScalar(0.55).addScaledVector(U.uZenith.value, 0.4);
     // the one light everything shares: the sun by day, the moon by night
     const m = smoothstep(0.02, -0.12, y);

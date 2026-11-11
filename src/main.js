@@ -45,6 +45,9 @@ async function boot() {
         let saved = null; try { saved = localStorage.getItem('selah.voice'); } catch { /* storage may be blocked */ }
         if (saved === 'off') this.narrator.setEnabled(false); else if (saved && this.narrator.voices.includes(saved)) this.narrator.setVoice(saved);
         hud.setVoices([...this.narrator.voices, 'off'], saved || this.narrator.manifest.default);
+        // spoken discoveries outside the film carry their own captions
+        this.narrator.on('caption', (c) => { if (!app.director?.playing) hud.caption(c.text); });
+        this.narrator.on('captionend', () => { if (!app.director?.playing) hud.caption(null); });
       } catch (e) { console.warn('[selah] narrator unavailable:', e.message); }
       app.emit('audio', this);
     },
@@ -56,6 +59,15 @@ async function boot() {
   const SCENE = { web: 'web', galaxy: 'galaxy', system: 'system', orbit: 'orbit', surface: 'surface', blackhole: 'blackhole' };
   app.on('realm', ({ realm }) => { if (!app.director?.playing) audio.engine?.music.setScene(realm.musicScene || SCENE[realm.name] || 'web', { fade: 5 }); });
   app.on('travelstart', ({ type }) => { if (!app.director?.playing) audio.engine?.music.cue(type === 'rise' ? 'arrival' : 'dive'); });
+  // the first time you reach each kind of place, the narrator has one line for it
+  const seen = new Set(), DISC = { web: 'web', galaxy: 'galaxy', system: 'star', orbit: 'orbit', blackhole: 'blackhole', surface: 'surface' };
+  const discover = (key) => {
+    if (!key || seen.has(key) || app.director?.playing || !audio.narrator) return; seen.add(key);
+    const h = audio.narrator.say('disc_' + key); audio.engine?.music.cue('discover');
+    if (audio.engine) { const release = audio.engine.duck(-5, 0.4, 1.6); h.ended.then(release); }
+  };
+  app.on('realm', ({ realm }) => setTimeout(() => { if (app.active === realm) discover(DISC[realm.name]); }, 2600));
+  app.on('discover', discover);
 
   // ---- development entry: straight into one realm ----
   const dev = p.get('realm');
