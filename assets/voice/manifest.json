@@ -1,0 +1,365 @@
+{
+ "version": 1,
+ "default": "alan",
+ "voices": {
+  "alan": {
+   "label": "Alan — calm British male",
+   "lines": {
+    "intro_01": {
+     "file": "alan/intro_01.mp3",
+     "duration": 8.675,
+     "text": "Before the first light, there was silence. A silence so complete, it had no edge.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 1.672,
+       "text": "Before the first light,"
+      },
+      {
+       "t0": 2.122,
+       "t1": 3.549,
+       "text": "there was silence."
+      },
+      {
+       "t0": 4.599,
+       "t1": 6.654,
+       "text": "A silence so complete,"
+      },
+      {
+       "t0": 7.154,
+       "t1": 8.561,
+       "text": "it had no edge."
+      }
+     ]
+    },
+    "intro_02": {
+     "file": "alan/intro_02.mp3",
+     "duration": 4.384,
+     "text": "And then… the silence took a breath.",
+     "captions": [
+      {
+       "t0": 0.104,
+       "t1": 0.992,
+       "text": "And then…"
+      },
+      {
+       "t0": 2.442,
+       "t1": 4.268,
+       "text": "the silence took a breath."
+      }
+     ]
+    },
+    "intro_03": {
+     "file": "alan/intro_03.mp3",
+     "duration": 8.805,
+     "text": "In its first minutes, the universe made hydrogen. Everything else, it left to the stars.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 1.642,
+       "text": "In its first minutes,"
+      },
+      {
+       "t0": 2.042,
+       "t1": 4.048,
+       "text": "the universe made hydrogen."
+      },
+      {
+       "t0": 4.998,
+       "t1": 6.245,
+       "text": "Everything else,"
+      },
+      {
+       "t0": 6.745,
+       "t1": 8.691,
+       "text": "it left to the stars."
+      }
+     ]
+    },
+    "intro_04": {
+     "file": "alan/intro_04.mp3",
+     "duration": 11.281,
+     "text": "Then gravity began to sing. And slowly, the darkness gathered itself into rivers… and the rivers caught fire.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 2.411,
+       "text": "Then gravity began to sing."
+      },
+      {
+       "t0": 3.411,
+       "t1": 4.438,
+       "text": "And slowly,"
+      },
+      {
+       "t0": 4.938,
+       "t1": 7.952,
+       "text": "the darkness gathered itself into rivers…"
+      },
+      {
+       "t0": 9.252,
+       "t1": 11.167,
+       "text": "and the rivers caught fire."
+      }
+     ]
+    },
+    "intro_05": {
+     "file": "alan/intro_05.mp3",
+     "duration": 10.463,
+     "text": "This is the cosmic web. Every thread, a river of galaxies. Every galaxy, a hundred billion suns.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 1.842,
+       "text": "This is the cosmic web."
+      },
+      {
+       "t0": 2.892,
+       "t1": 3.78,
+       "text": "Every thread,"
+      },
+      {
+       "t0": 4.18,
+       "t1": 5.886,
+       "text": "a river of galaxies."
+      },
+      {
+       "t0": 6.736,
+       "t1": 7.943,
+       "text": "Every galaxy,"
+      },
+      {
+       "t0": 8.343,
+       "t1": 10.349,
+       "text": "a hundred billion suns."
+      }
+     ]
+    },
+    "intro_06": {
+     "file": "alan/intro_06.mp3",
+     "duration": 13.961,
+     "text": "And around those suns… worlds. Oceans. Mountains. Cities. Someone, somewhere, looking up.",
+     "captions": [
+      {
+       "t0": 0.104,
+       "t1": 2.139,
+       "text": "And around those suns…"
+      },
+      {
+       "t0": 3.439,
+       "t1": 4.218,
+       "text": "worlds."
+      },
+      {
+       "t0": 5.118,
+       "t1": 6.115,
+       "text": "Oceans."
+      },
+      {
+       "t0": 6.865,
+       "t1": 7.893,
+       "text": "Mountains."
+      },
+      {
+       "t0": 8.643,
+       "t1": 9.511,
+       "text": "Cities."
+      },
+      {
+       "t0": 10.611,
+       "t1": 12.197,
+       "text": "Someone, somewhere,"
+      },
+      {
+       "t0": 12.747,
+       "t1": 13.845,
+       "text": "looking up."
+      }
+     ]
+    },
+    "intro_07": {
+     "file": "alan/intro_07.mp3",
+     "duration": 6.199,
+     "text": "It took thirteen billion years to make eyes that could look back. Yours.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 4.127,
+       "text": "It took thirteen billion years to make eyes that could look back."
+      },
+      {
+       "t0": 5.227,
+       "t1": 6.085,
+       "text": "Yours."
+      }
+     ]
+    },
+    "intro_08": {
+     "file": "alan/intro_08.mp3",
+     "duration": 10.716,
+     "text": "In the old songs, there is a word for this moment. Selah. Pause… and behold.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 1.722,
+       "text": "In the old songs,"
+      },
+      {
+       "t0": 2.172,
+       "t1": 4.168,
+       "text": "there is a word for this moment."
+      },
+      {
+       "t0": 5.268,
+       "t1": 6.136,
+       "text": "Selah."
+      },
+      {
+       "t0": 7.336,
+       "t1": 8.004,
+       "text": "Pause…"
+      },
+      {
+       "t0": 9.504,
+       "t1": 10.602,
+       "text": "and behold."
+      }
+     ]
+    },
+    "intro_09": {
+     "file": "alan/intro_09.mp3",
+     "duration": 4.234,
+     "text": "This universe is yours now. Go anywhere.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 2.121,
+       "text": "This universe is yours now."
+      },
+      {
+       "t0": 3.121,
+       "t1": 4.119,
+       "text": "Go anywhere."
+      }
+     ]
+    },
+    "disc_web": {
+     "file": "alan/disc_web.mp3",
+     "duration": 2.106,
+     "text": "You are looking at everything.",
+     "captions": [
+      {
+       "t0": 0.104,
+       "t1": 1.99,
+       "text": "You are looking at everything."
+      }
+     ]
+    },
+    "disc_galaxy": {
+     "file": "alan/disc_galaxy.mp3",
+     "duration": 3.353,
+     "text": "Home is a hundred thousand light-years wide.",
+     "captions": [
+      {
+       "t0": 0.104,
+       "t1": 3.237,
+       "text": "Home is a hundred thousand light-years wide."
+      }
+     ]
+    },
+    "disc_star": {
+     "file": "alan/disc_star.mp3",
+     "duration": 3.323,
+     "text": "Every sun is a long, slow sunrise.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 3.209,
+       "text": "Every sun is a long, slow sunrise."
+      }
+     ]
+    },
+    "disc_blackhole": {
+     "file": "alan/disc_blackhole.mp3",
+     "duration": 2.815,
+     "text": "Here, even light kneels.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 0.595,
+       "text": "Here,"
+      },
+      {
+       "t0": 1.095,
+       "t1": 2.701,
+       "text": "even light kneels."
+      }
+     ]
+    },
+    "disc_orbit": {
+     "file": "alan/disc_orbit.mp3",
+     "duration": 2.814,
+     "text": "Every world is a first sentence.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 2.7,
+       "text": "Every world is a first sentence."
+      }
+     ]
+    },
+    "disc_surface": {
+     "file": "alan/disc_surface.mp3",
+     "duration": 4.492,
+     "text": "Walk. The ground has waited a long time for you.",
+     "captions": [
+      {
+       "t0": 0.104,
+       "t1": 0.703,
+       "text": "Walk."
+      },
+      {
+       "t0": 1.553,
+       "t1": 4.376,
+       "text": "The ground has waited a long time for you."
+      }
+     ]
+    },
+    "disc_ride": {
+     "file": "alan/disc_ride.mp3",
+     "duration": 3.874,
+     "text": "Go on. The horizon likes to be chased.",
+     "captions": [
+      {
+       "t0": 0.106,
+       "t1": 0.715,
+       "text": "Go on."
+      },
+      {
+       "t0": 1.515,
+       "t1": 3.76,
+       "text": "The horizon likes to be chased."
+      }
+     ]
+    },
+    "disc_night": {
+     "file": "alan/disc_night.mp3",
+     "duration": 3.654,
+     "text": "Look up. You know the way home now.",
+     "captions": [
+      {
+       "t0": 0.104,
+       "t1": 0.872,
+       "text": "Look up."
+      },
+      {
+       "t0": 1.722,
+       "t1": 3.538,
+       "text": "You know the way home now."
+      }
+     ]
+    }
+   }
+  }
+ }
+}

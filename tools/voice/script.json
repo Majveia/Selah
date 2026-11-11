@@ -1,0 +1,187 @@
+{
+  "_comment": [
+    "Selah narration script — the single source of truth for tools/voice/build_voice.py.",
+    "Wording is art-directed: do NOT edit `text`. Each line is synthesised phrase by phrase;",
+    "`phrases[].text` joined with spaces must equal the line `text` exactly (the build asserts it).",
+    "phrase fields: text, pause (seconds of silence AFTER the phrase, speech-end to speech-start),",
+    "  final  ('major' = sentence-end fall, 'minor' = comma / suspended, default from punctuation),",
+    "  length_scale (override), say (respelling fed to the phonemizer instead of text).",
+    "lexicon: lower-cased word -> phonemes (gruut/Mimic3 en_US symbols, stress attached to vowels)."
+  ],
+  "version": 1,
+  "default": "alan",
+  "target_lufs": -19.0,
+  "peak_ceiling_db": -3.0,
+  "head_room": 0.1,
+  "tail_room": 0.12,
+  "voices": {
+    "alan": {
+      "label": "Alan — calm British male",
+      "model": "en_UK/apope_low",
+      "sha256": "0b5a323500ebd022351db12da2b3aab8cdd47d0826d173e780a58b93604618c9",
+      "speaker": null,
+      "length_scale": 1.22,
+      "noise_scale": 0.55,
+      "noise_w": 0.6,
+      "takes": 5,
+      "eq": "highpass=f=70:poles=2,equalizer=f=150:t=q:w=0.8:g=1.5,equalizer=f=3300:t=q:w=0.9:g=1.5,treble=g=1.0:f=7000:t=q:w=0.7"
+    },
+    "cori": {
+      "label": "Cori — soft British female",
+      "model": "en_US/hifi-tts_low",
+      "sha256": "45983e12395beadf7527cf5a043b52c93368f753d21c411ee103a7496c9190cb",
+      "speaker": "92",
+      "length_scale": 1.2,
+      "noise_scale": 0.4,
+      "noise_w": 0.45,
+      "takes": 5,
+      "eq": "highpass=f=90:poles=2,equalizer=f=220:t=q:w=0.8:g=1.0,equalizer=f=3600:t=q:w=0.9:g=1.0,treble=g=0.5:f=7000:t=q:w=0.7"
+    }
+  },
+  "lexicon": {
+    "selah": ["s", "ˈeɪ", "l", "ˌɑ"]
+  },
+  "lines": [
+    {
+      "id": "intro_01",
+      "text": "Before the first light, there was silence. A silence so complete, it had no edge.",
+      "phrases": [
+        { "text": "Before the first light,", "pause": 0.45 },
+        { "text": "there was silence.", "pause": 1.05 },
+        { "text": "A silence so complete,", "pause": 0.5 },
+        { "text": "it had no edge." }
+      ]
+    },
+    {
+      "id": "intro_02",
+      "text": "And then… the silence took a breath.",
+      "phrases": [
+        { "text": "And then…", "final": "minor", "pause": 1.45 },
+        { "text": "the silence took a breath." }
+      ]
+    },
+    {
+      "id": "intro_03",
+      "text": "In its first minutes, the universe made hydrogen. Everything else, it left to the stars.",
+      "phrases": [
+        { "text": "In its first minutes,", "pause": 0.4 },
+        { "text": "the universe made hydrogen.", "pause": 0.95 },
+        { "text": "Everything else,", "pause": 0.5 },
+        { "text": "it left to the stars." }
+      ]
+    },
+    {
+      "id": "intro_04",
+      "text": "Then gravity began to sing. And slowly, the darkness gathered itself into rivers… and the rivers caught fire.",
+      "phrases": [
+        { "text": "Then gravity began to sing.", "pause": 1.0 },
+        { "text": "And slowly,", "pause": 0.5 },
+        { "text": "the darkness gathered itself into rivers…", "final": "minor", "pause": 1.3 },
+        { "text": "and the rivers caught fire." }
+      ]
+    },
+    {
+      "id": "intro_05",
+      "text": "This is the cosmic web. Every thread, a river of galaxies. Every galaxy, a hundred billion suns.",
+      "phrases": [
+        { "text": "This is the cosmic web.", "pause": 1.05 },
+        { "text": "Every thread,", "pause": 0.4 },
+        { "text": "a river of galaxies.", "pause": 0.85 },
+        { "text": "Every galaxy,", "pause": 0.4 },
+        { "text": "a hundred billion suns." }
+      ]
+    },
+    {
+      "id": "intro_06",
+      "text": "And around those suns… worlds. Oceans. Mountains. Cities. Someone, somewhere, looking up.",
+      "phrases": [
+        { "text": "And around those suns…", "final": "minor", "pause": 1.3 },
+        { "text": "worlds.", "pause": 0.9 },
+        { "text": "Oceans.", "pause": 0.75 },
+        { "text": "Mountains.", "pause": 0.75 },
+        { "text": "Cities.", "pause": 1.1 },
+        { "text": "Someone, somewhere,", "pause": 0.55 },
+        { "text": "looking up." }
+      ]
+    },
+    {
+      "id": "intro_07",
+      "text": "It took thirteen billion years to make eyes that could look back. Yours.",
+      "phrases": [
+        { "text": "It took thirteen billion years to make eyes that could look back.", "pause": 1.1 },
+        { "text": "Yours.", "length_scale": 1.3 }
+      ]
+    },
+    {
+      "id": "intro_08",
+      "text": "In the old songs, there is a word for this moment. Selah. Pause… and behold.",
+      "phrases": [
+        { "text": "In the old songs,", "pause": 0.45 },
+        { "text": "there is a word for this moment.", "pause": 1.1 },
+        { "text": "Selah.", "pause": 1.2, "length_scale": 1.3 },
+        { "text": "Pause…", "final": "major", "pause": 1.5 },
+        { "text": "and behold." }
+      ]
+    },
+    {
+      "id": "intro_09",
+      "text": "This universe is yours now. Go anywhere.",
+      "phrases": [
+        { "text": "This universe is yours now.", "pause": 1.0 },
+        { "text": "Go anywhere." }
+      ]
+    },
+    {
+      "id": "disc_web",
+      "text": "You are looking at everything.",
+      "phrases": [{ "text": "You are looking at everything." }]
+    },
+    {
+      "id": "disc_galaxy",
+      "text": "Home is a hundred thousand light-years wide.",
+      "phrases": [{ "text": "Home is a hundred thousand light-years wide." }]
+    },
+    {
+      "id": "disc_star",
+      "text": "Every sun is a long, slow sunrise.",
+      "phrases": [{ "text": "Every sun is a long, slow sunrise." }]
+    },
+    {
+      "id": "disc_blackhole",
+      "text": "Here, even light kneels.",
+      "phrases": [
+        { "text": "Here,", "pause": 0.5 },
+        { "text": "even light kneels." }
+      ]
+    },
+    {
+      "id": "disc_orbit",
+      "text": "Every world is a first sentence.",
+      "phrases": [{ "text": "Every world is a first sentence." }]
+    },
+    {
+      "id": "disc_surface",
+      "text": "Walk. The ground has waited a long time for you.",
+      "phrases": [
+        { "text": "Walk.", "pause": 0.85 },
+        { "text": "The ground has waited a long time for you." }
+      ]
+    },
+    {
+      "id": "disc_ride",
+      "text": "Go on. The horizon likes to be chased.",
+      "phrases": [
+        { "text": "Go on.", "pause": 0.8 },
+        { "text": "The horizon likes to be chased." }
+      ]
+    },
+    {
+      "id": "disc_night",
+      "text": "Look up. You know the way home now.",
+      "phrases": [
+        { "text": "Look up.", "pause": 0.85 },
+        { "text": "You know the way home now." }
+      ]
+    }
+  ]
+}
