@@ -95,7 +95,7 @@ export const CLIMAX = [
 ];
 
 function parseBar(str) {
-  return str.split('|').map((s, i, arr) => {
+  return str.replace(/6\/9/g, '69').split('|').map((s, i, arr) => {
     const m = /^\s*(-?\d+)\s+([^~/\s]+)(?:~(\w+))?(?:\/(\d+))?\s*$/.exec(s);
     if (!m) throw new Error('bad chord "' + s + '"');
     return { frac: i / arr.length, off: +m[1], q: m[2], mode: m[3] || null, bass: m[4] == null ? null : +m[4] };

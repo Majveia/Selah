@@ -32,6 +32,8 @@ export const QUAL = {
   '5':       { t: [7, 0, 14], s: 'ion', p: [0, 2, 7, 9] },
 };
 
+QUAL['69'] = QUAL['6/9'];
+
 const chordCache = new Map();
 
 /** Build (and cache) an absolute chord: root/bass pitch classes, tones by priority, scale, lookup tables. */
