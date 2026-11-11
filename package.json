@@ -1,0 +1,12 @@
+{
+  "name": "selah",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Selah — an interactive, simulated universe. Three.js, no build step.",
+  "type": "module",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "shot": "node tools/shot.cjs"
+  },
+  "license": "MIT"
+}
