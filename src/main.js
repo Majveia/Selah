@@ -42,7 +42,7 @@ async function boot() {
         if (!this.engine) { await ctx.resume(); this._ownCtx = ctx; }
         this.narrator = await createNarrator({ ctx, output: this.engine?.buses.voice || ctx.destination, reverbSend: this.engine?.reverb });
         app.narrator = this.narrator;
-        const saved = localStorage.getItem('selah.voice');
+        let saved = null; try { saved = localStorage.getItem('selah.voice'); } catch { /* storage may be blocked */ }
         if (saved === 'off') this.narrator.setEnabled(false); else if (saved && this.narrator.voices.includes(saved)) this.narrator.setVoice(saved);
         hud.setVoices([...this.narrator.voices, 'off'], saved || this.narrator.manifest.default);
       } catch (e) { console.warn('[selah] narrator unavailable:', e.message); }

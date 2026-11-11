@@ -1,5 +1,6 @@
 /* Selah — interface. Small, quiet, and out of the way: the universe is the interface. */
 :root {
+  color-scheme: dark;
   --ink: rgba(236, 240, 255, 0.92);
   --dim: rgba(236, 240, 255, 0.5);
   --faint: rgba(236, 240, 255, 0.22);
