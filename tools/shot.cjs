@@ -23,6 +23,7 @@ function serve() {
   const server = await serve(); const port = server.address().port;
   const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required', '--mute-audio'] });
   const page = await browser.newPage({ viewport: { width: +w, height: +h }, deviceScaleFactor: Number(process.env.DSF || 1) });
+  page.setDefaultTimeout(600000);
   const logs = [];
   page.on('console', (m) => { if (['error', 'warning'].includes(m.type())) logs.push(`[${m.type()}] ${m.text()}`); });
   page.on('pageerror', (e) => logs.push(`[pageerror] ${e.message}`));

@@ -9,13 +9,13 @@
 import * as THREE from 'three';
 import { Realm } from '../../core/realm.js';
 import { OrbitRig } from '../../core/controls.js';
-import { createStarfield } from '../../core/stars.js';
+import { createStarfield, createBeacon } from '../../core/stars.js';
 import { RNG, hashInts, clamp, damp } from '../../core/rng.js';
 import { buildField, samplePsi, buildCosmology } from './field.js';
 
 const BOX = 100;                       // world units per box side
 const BOX_MLY = (250 / 0.674) * 3.2616; // box side in million light-years (250 Mpc/h)
-const D_NOW = 1.55;                    // displacement amplitude today (rms linear δ on the grid scale)
+export const D_NOW = 1.55;                    // displacement amplitude today (rms linear δ on the grid scale)
 const A_MIN = 0.04, A_MAX = 1.9;
 
 const WEB_COMMON = /* glsl */ `
@@ -77,7 +77,7 @@ void main(){
   col *= mix(vec3(1.0), h > 0.0 ? vec3(1.28, 0.74, 1.12) : vec3(0.70, 1.12, 1.02), abs(h) * (1.0 - 0.75 * smoothstep(0.7, 1.0, t)));
   col = mix(col, uHeatColor, uHeat);
 
-  float I = uGain * mix(0.16 + 0.84 * pow(min(rho, 180.0), 0.46), 1.0, uHeat) * fadeS;
+  float I = uGain * mix(0.045 + 0.955 * pow(min(rho, 200.0), 0.58) * 0.62, 1.0, uHeat) * fadeS;
   float px = uSize * (0.7 + 0.6 * r.z) * uProj / depth;
   // thin-lens flavour: tracers far from the focal distance swell into soft discs (surface brightness falls with area)
   float coc = abs(depth - uFocus) / max(uFocus, 1e-3);
@@ -150,7 +150,7 @@ export default class WebRealm extends Realm {
   constructor(app) {
     super(app);
     this.camera = new THREE.PerspectiveCamera(48, 1, 0.02, 3000);
-    this.post = { bloom: 0.75, bloomThreshold: 0.85, bloomKnee: 0.6, bloomScatter: 0.74, exposure: 1.0, vignette: 0.34, saturation: 1.1, contrast: 1.04, grain: 0.012, sharpen: 0.45, ca: 0.1 };
+    this.post = { bloom: 0.8, bloomThreshold: 0.55, bloomKnee: 0.5, bloomScatter: 0.74, exposure: 1.0, vignette: 0.34, saturation: 1.1, contrast: 1.04, grain: 0.012, sharpen: 0.45, ca: 0.1 };
     this.center = new THREE.Vector3(0.5, 0.5, 0.5);   // box coordinates of the observer's focus
     this._centerGoal = this.center.clone();
     this.a = 1; this._aGoal = 1;                      // scale factor shown
@@ -184,8 +184,8 @@ export default class WebRealm extends Realm {
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('aSeed', new THREE.BufferAttribute(new Uint8Array(count), 1, true));
     geo.setDrawRange(0, count);
-    this.baseGain = 0.26 * Math.pow(175000 / count, 0.82);
-    this.pUniforms = { ...U, uN: { value: N }, uSize: { value: 0.085 }, uGain: { value: this.baseGain }, uHeat: { value: 0 }, uHeatColor: { value: new THREE.Vector3(3, 2.6, 2.2) }, uVirial: { value: 0.0016 }, uFocus: { value: 60 } };
+    this.baseGain = 2.7 * Math.pow(175000 / count, 0.82);
+    this.pUniforms = { ...U, uN: { value: N }, uSize: { value: 0.12 }, uGain: { value: this.baseGain }, uHeat: { value: 0 }, uHeatColor: { value: new THREE.Vector3(3, 2.6, 2.2) }, uVirial: { value: 0.0016 }, uFocus: { value: 60 } };
     const pm = new THREE.ShaderMaterial({ vertexShader: PARTICLE_VERT, fragmentShader: PARTICLE_FRAG, uniforms: this.pUniforms, blending: THREE.AdditiveBlending, depthTest: false, depthWrite: false, transparent: true });
     this.points = new THREE.Points(geo, pm); this.points.frustumCulled = false;
     this.scene.add(this.points);
@@ -210,7 +210,10 @@ export default class WebRealm extends Realm {
     this.deep = createStarfield({ count: q.tier === 'low' ? 900 : 2600, seed: `${this.seed}:deep`, radius: 1200, brightness: 0.22 });
     this.scene.add(this.deep);
 
-    this.rig = new OrbitRig(this.camera, this.app.input, { distance: 150, minDistance: 0.55, maxDistance: 210, yaw: 0.6, pitch: 0.22, idleSpin: 0.016, idleDelay: 2.5, smooth: 0.1 });
+    // --- the first light (driven by the opening film) ---
+    this.beacon = createBeacon(); this.beacon.set(30, 0); this.scene.add(this.beacon);
+
+    this.rig = new OrbitRig(this.camera, this.app.input, { distance: 118, minDistance: 0.55, maxDistance: 190, yaw: 0.6, pitch: 0.22, idleSpin: 0.016, idleDelay: 2.5, smooth: 0.1 });
     this.rig.onZoomInLimit = () => this._diveNearest();
 
     this.timeControl = {
@@ -249,6 +252,8 @@ export default class WebRealm extends Realm {
       this.center.copy(this._last.center); this._centerGoal.copy(this._last.center);
       this.rig.set({ distance: 0.7 }); this.rig.flyTo({ distance: this._last.distance }, 3.2, { ease: 'out', interruptible: true });
     } else if (params.pose) this.rig.set(params.pose);
+    if (params.distance) this.rig.set({ distance: params.distance, yaw: params.yaw ?? this.rig.yaw, pitch: params.pitch ?? this.rig.pitch });
+    if (params.a) this.a = this._aGoal = params.a;
     if (params.cine !== undefined) this.cine = params.cine;
   }
   exit() { this._offTap?.forEach((f) => f()); this._offTap = null; this.app.hud?.setTag(null); }
@@ -327,6 +332,7 @@ export default class WebRealm extends Realm {
     P.uHeat.value = cine?.heat ?? 0; if (cine?.heatColor) P.uHeatColor.value.fromArray(cine.heatColor);
     P.uFocus.value = this.rig.distance;
     this.gUniforms.uGalGain.value = cine?.galaxies ?? 1.5;
+    this.beacon.tick(this.app); if (!cine) this.beacon.set(30, 0); else if (cine.beacon) this.beacon.set(cine.beacon[0], cine.beacon[1]);
     this.deep.tick(this.app); this.deep.material.uniforms.uBrightness.value = 0.22 * (cine?.deep ?? 1);
 
     // hover label (desktop) / nearest-galaxy label when close

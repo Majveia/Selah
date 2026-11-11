@@ -49,3 +49,24 @@ export function createStarfield({ count = 6000, seed = 'stars', radius = 900, ba
   pts.tick = (app) => { mat.uniforms.uPixelRatio.value = app.viewport.pixelRatio; mat.uniforms.uTime.value = app.time; };
   return pts;
 }
+
+/** A single brilliant point with diffraction spikes (the first light; suns seen from afar). Call .set(sizePx, brightness, [r,g,b]). */
+export function createBeacon(color = [1, 0.95, 0.88]) {
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3), 3));
+  geo.setAttribute('aColor', new THREE.BufferAttribute(new Float32Array(color), 3));
+  geo.setAttribute('aMag', new THREE.BufferAttribute(new Float32Array([1]), 1));
+  geo.setAttribute('aSize', new THREE.BufferAttribute(new Float32Array([1]), 1));
+  const mat = new THREE.ShaderMaterial({
+    vertexShader: GLSL.starVertex, fragmentShader: GLSL.starFragment,
+    uniforms: { uPixelRatio: { value: 1 }, uSizeScale: { value: 30 }, uBrightness: { value: 1 }, uTime: { value: 0 }, uTwinkle: { value: 0 } },
+    blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, transparent: true,
+  });
+  const p = new THREE.Points(geo, mat); p.frustumCulled = false;
+  p.set = (sizePx, brightness, rgb) => {
+    mat.uniforms.uSizeScale.value = sizePx; mat.uniforms.uBrightness.value = brightness; p.visible = brightness > 1e-4;
+    if (rgb) { geo.attributes.aColor.array.set(rgb); geo.attributes.aColor.needsUpdate = true; }
+  };
+  p.tick = (app) => { mat.uniforms.uPixelRatio.value = app.viewport.pixelRatio; };
+  return p;
+}

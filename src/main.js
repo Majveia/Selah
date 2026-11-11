@@ -79,12 +79,13 @@ async function boot() {
   await webReady;
   const skipIntro = p.get('intro') === '0' || !Director;
   await app.travel('web', skipIntro ? {} : { cine: Director.openingState() }, { type: 'cut' });
-  app.start(); api.ready = true;
   if (p.has('freeze')) { hud.hideGate(); } else { await gate; await audio.init(); }
-  if (skipIntro) { hud.showControls(9); return; }
+  if (skipIntro) { app.start(); api.ready = true; hud.showControls(9); return; }
   const director = (app.director = new Director(app));
   app.on('ui:intro', () => director.play());
-  await director.play();
+  await director.prepare();
+  app.start(); api.ready = true;
+  await director.run();
 }
 
 boot().catch((e) => { console.error(e); fatal('Something went wrong while starting Selah.<br><small style="opacity:.6">' + (e && e.message) + '</small>'); });
